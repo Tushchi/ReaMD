@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout repository
@@ -23,17 +25,22 @@ jobs:
       - name: Install reapack-index
         run: gem install reapack-index
 
-      - name: Check packages
-        run: reapack-index --check
-        continue-on-error: true
-
       - name: Build index
-        run: reapack-index
+        run: |
+          reapack-index \
+            --output index.xml \
+            --name "ReaMD" \
+            --link "https://github.com/b451c/ReaMD" \
+            Main/
 
       - name: Commit and push index
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add index.xml
-          git diff --quiet --cached || git commit -m "Update ReaPack index"
-          git push
+          if git diff --quiet --cached; then
+            echo "No changes to commit"
+          else
+            git commit -m "Update ReaPack index"
+            git push
+          fi
