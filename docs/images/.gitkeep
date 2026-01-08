@@ -1,0 +1,22 @@
+# Placeholder for images
+
+Add the following images to this directory:
+
+## Required Images
+
+1. **hero.png** - Main ReaMD window docked in REAPER (dark theme, nice project)
+2. **theme-dark.png** - Dark theme example
+3. **theme-light.png** - Light theme example
+4. **settings.png** - Settings panel open
+
+## GIFs (Recommended)
+
+1. **scenario-demo.gif** - Click text → jump to item (5-10 sec)
+2. **teleprompter-demo.gif** - Playback with auto-scroll (5-10 sec)
+3. **ai-parse-demo.gif** - Paste → Parse → Save As (10-15 sec)
+
+## Image Guidelines
+
+- PNG for screenshots (lossless)
+- GIF for demos (optimize for web, ~600px width)
+- Dark background preferred for consistency

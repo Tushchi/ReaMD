@@ -22,6 +22,7 @@ Config.defaults = {
     scroll_offset = 0.3,             -- Viewport offset (0.3 = 30% from top)
     last_directory = "",             -- Last opened folder
     recent_files = "",               -- Recent files (pipe-separated paths)
+    ai_api_key = "",                 -- Anthropic API key for AI parsing
 }
 
 -- Type definitions for proper conversion from ExtState strings
@@ -36,6 +37,7 @@ local setting_types = {
     scroll_offset = "number",
     last_directory = "string",
     recent_files = "string",
+    ai_api_key = "string",
 }
 
 -- Current settings (initialized as copy of defaults)

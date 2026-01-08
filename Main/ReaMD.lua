@@ -60,6 +60,7 @@ local Renderer = require('md_renderer')
 local ScenarioEngine = require('scenario_engine')
 local json = require('json')
 local Teleprompter = require('teleprompter')
+local AIParser = require('ai_parser')
 
 -- ===============================================================================
 -- CONSTANTS
@@ -104,6 +105,12 @@ local state = {
     -- Edit mode (for text editing)
     edit_mode = false,
     edit_changed = false,  -- True if text was modified
+
+    -- New file mode (for "New Markdown")
+    is_new_file = false,   -- True when creating new file (always Save As on first save)
+
+    -- Settings UI state
+    show_api_key = false,  -- Toggle for API key visibility in settings
 }
 
 -- ===============================================================================
@@ -317,16 +324,63 @@ local function load_markdown_file(path)
 end
 
 --- Save markdown file after editing
+-- @param force_save_as boolean: If true, always show Save As dialog
 -- @return boolean: True if saved successfully
-local function save_markdown_file()
-    if not state.file_path then
-        show_status("No file to save")
-        return false
-    end
-
+local function save_markdown_file(force_save_as)
     if not state.markdown_content then
         show_status("No content to save")
         return false
+    end
+
+    -- For new files or force, show Save As dialog
+    if state.is_new_file or not state.file_path or force_save_as then
+        local last_dir = Config.get("last_directory")
+        if not last_dir or last_dir == "" then
+            -- Try to get project directory
+            local proj_path = reaper.GetProjectPath("")
+            if proj_path and proj_path ~= "" then
+                last_dir = proj_path
+            else
+                last_dir = ""
+            end
+        end
+
+        -- Try JS extension for save dialog first
+        local retval, filename
+        if reaper.JS_Dialog_BrowseForSaveFile then
+            retval, filename = reaper.JS_Dialog_BrowseForSaveFile(
+                "Save Markdown File",
+                last_dir,
+                state.file_name or "untitled.md",
+                "Markdown files (*.md)\0*.md\0All files (*.*)\0*.*\0"
+            )
+        else
+            -- Fallback: use GetUserFileNameForRead (not ideal but works)
+            retval, filename = reaper.GetUserFileNameForRead(
+                last_dir,
+                "Save As (select or type filename)",
+                "*.md"
+            )
+        end
+
+        if not retval or not filename or filename == "" then
+            show_status("Save cancelled")
+            return false
+        end
+
+        -- Ensure .md extension
+        if not filename:match("%.md$") and not filename:match("%.markdown$") then
+            filename = filename .. ".md"
+        end
+
+        state.file_path = filename
+        state.file_name = Utils.get_filename(filename)
+        state.is_new_file = false
+
+        -- Save directory for next time
+        Config.set("last_directory", Utils.get_directory(filename))
+        Config.add_recent_file(filename)
+        Config.save()
     end
 
     -- Write to file
@@ -536,6 +590,37 @@ local function render_toolbar()
     -- ═══════════════════════════════════════════════════════════════════════
     -- LEFT SIDE: File operations
     -- ═══════════════════════════════════════════════════════════════════════
+
+    -- New dropdown menu
+    if reaper.ImGui_Button(ctx, "New") then
+        reaper.ImGui_OpenPopup(ctx, "new_menu")
+    end
+
+    if reaper.ImGui_BeginPopup(ctx, "new_menu") then
+        if reaper.ImGui_MenuItem(ctx, "Markdown") then
+            -- Create new empty markdown
+            state.markdown_content = ""
+            state.parsed_ast = nil
+            state.file_path = nil
+            state.file_name = "Untitled.md"
+            state.is_new_file = true
+            state.edit_mode = true  -- Start in edit mode
+            state.edit_changed = false
+            state.scenario_enabled = false
+            state.highlight_lines = nil
+            show_status("New markdown - edit and save")
+        end
+
+        reaper.ImGui_Separator(ctx)
+
+        if reaper.ImGui_MenuItem(ctx, "AI Parse...") then
+            AIParser.show()
+        end
+
+        reaper.ImGui_EndPopup(ctx)
+    end
+
+    reaper.ImGui_SameLine(ctx)
 
     -- Open dropdown menu
     if reaper.ImGui_Button(ctx, "Open...") then
@@ -869,6 +954,43 @@ local function render_settings_panel()
         reaper.ImGui_Separator(ctx)
         reaper.ImGui_Spacing(ctx)
 
+        reaper.ImGui_Text(ctx, "AI Parser Settings")
+        reaper.ImGui_Spacing(ctx)
+
+        -- API Key field (masked)
+        local api_key = Config.get("ai_api_key") or ""
+        local show_key = state.show_api_key
+
+        reaper.ImGui_SetNextItemWidth(ctx, 180)
+        if show_key then
+            -- Show actual key (editable)
+            local key_changed, new_key = reaper.ImGui_InputText(ctx, "API Key", api_key)
+            if key_changed then
+                Config.set("ai_api_key", new_key)
+            end
+        else
+            -- Show masked key (read-only display)
+            local masked = api_key ~= "" and string.rep("*", math.min(#api_key, 24)) or "(not set)"
+            reaper.ImGui_InputText(ctx, "API Key", masked, reaper.ImGui_InputTextFlags_ReadOnly())
+        end
+
+        reaper.ImGui_SameLine(ctx)
+        if reaper.ImGui_Button(ctx, show_key and "Hide" or "Show") then
+            state.show_api_key = not state.show_api_key
+        end
+
+        -- Edit Prompt button
+        if reaper.ImGui_Button(ctx, "Edit Prompt") then
+            AIParser.open_prompt_editor()
+        end
+        if reaper.ImGui_IsItemHovered(ctx) then
+            reaper.ImGui_SetTooltip(ctx, "Opens prompt file in your default text editor")
+        end
+
+        reaper.ImGui_Spacing(ctx)
+        reaper.ImGui_Separator(ctx)
+        reaper.ImGui_Spacing(ctx)
+
         -- Save button
         if reaper.ImGui_Button(ctx, "Save Settings") then
             Config.save()
@@ -897,6 +1019,165 @@ local function render_settings_panel()
     if not open then
         Config.save()
         state.show_settings = false
+    end
+end
+
+--- Render the AI Parse floating window
+local function render_ai_parse_window()
+    if not AIParser.is_visible() then
+        return
+    end
+
+    -- Poll for async response
+    if AIParser.state.is_loading then
+        AIParser.poll_response()
+    end
+
+    -- Window setup - center on screen
+    reaper.ImGui_SetNextWindowPos(ctx, 400, 300, reaper.ImGui_Cond_FirstUseEver())
+    reaper.ImGui_SetNextWindowSize(ctx, 500, 400, reaper.ImGui_Cond_FirstUseEver())
+
+    local window_flags = reaper.ImGui_WindowFlags_NoCollapse()
+    local visible, open = reaper.ImGui_Begin(ctx, "AI Parse - Format Text with AI", true, window_flags)
+
+    if visible then
+        local avail_w, avail_h = reaper.ImGui_GetContentRegionAvail(ctx)
+
+        -- Instructions
+        reaper.ImGui_TextWrapped(ctx, "Paste unformatted text below. AI will convert it to clean markdown.")
+        reaper.ImGui_Spacing(ctx)
+
+        -- Input text area (takes most of the space)
+        local text_height = avail_h - 100  -- Reserve space for buttons
+
+        if AIParser.state.is_loading then
+            -- Show loading indicator
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_FrameBg(), 0x2A2A2AFF)
+            local elapsed = math.floor(reaper.time_precise() - AIParser.state.start_time)
+            local _, _ = reaper.ImGui_InputTextMultiline(ctx, "##ai_input",
+                "Processing... (" .. elapsed .. "s)\n\nPlease wait...",
+                avail_w, text_height,
+                reaper.ImGui_InputTextFlags_ReadOnly())
+            reaper.ImGui_PopStyleColor(ctx)
+        else
+            -- Editable input
+            local changed, new_text = reaper.ImGui_InputTextMultiline(ctx, "##ai_input",
+                AIParser.state.input_text,
+                avail_w, text_height,
+                reaper.ImGui_InputTextFlags_AllowTabInput())
+            if changed then
+                AIParser.state.input_text = new_text
+            end
+        end
+
+        reaper.ImGui_Spacing(ctx)
+
+        -- Error message
+        if AIParser.state.error_message then
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Text(), 0xFF4444FF)
+            reaper.ImGui_TextWrapped(ctx, "Error: " .. AIParser.state.error_message)
+            reaper.ImGui_PopStyleColor(ctx)
+            reaper.ImGui_Spacing(ctx)
+        end
+
+        -- Buttons row
+        local has_input = AIParser.state.input_text and #AIParser.state.input_text > 0
+
+        if AIParser.state.is_loading then
+            -- Cancel button during loading
+            if reaper.ImGui_Button(ctx, "Cancel") then
+                AIParser.cancel()
+            end
+
+            -- Loading animation (animated dots)
+            reaper.ImGui_SameLine(ctx)
+            local dots = string.rep(".", math.floor(reaper.time_precise() * 2) % 4)
+            reaper.ImGui_Text(ctx, "Processing" .. dots)
+
+        elseif AIParser.state.result_markdown then
+            -- Result available - show Save button
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0x33CC33FF)
+            if reaper.ImGui_Button(ctx, "Save As...") then
+                -- Save result as new file - use project folder as default
+                local last_dir = Config.get("last_directory")
+                if not last_dir or last_dir == "" then
+                    local proj_path = reaper.GetProjectPath("")
+                    if proj_path and proj_path ~= "" then
+                        last_dir = proj_path
+                    else
+                        last_dir = ""
+                    end
+                end
+
+                local retval, filename
+                if reaper.JS_Dialog_BrowseForSaveFile then
+                    retval, filename = reaper.JS_Dialog_BrowseForSaveFile(
+                        "Save Formatted Markdown",
+                        last_dir,
+                        "formatted.md",
+                        "Markdown files (*.md)\0*.md\0"
+                    )
+                else
+                    retval, filename = reaper.GetUserFileNameForRead(
+                        last_dir,
+                        "Save As (select or type filename)",
+                        "*.md"
+                    )
+                end
+
+                if retval and filename and filename ~= "" then
+                    if not filename:match("%.md$") then
+                        filename = filename .. ".md"
+                    end
+
+                    local success, err = Utils.write_file(filename, AIParser.state.result_markdown)
+                    if success then
+                        -- Load the saved file
+                        load_markdown_file(filename)
+                        AIParser.hide()
+                        show_status("Saved and loaded: " .. Utils.get_filename(filename))
+                    else
+                        AIParser.state.error_message = "Failed to save: " .. (err or "")
+                    end
+                end
+            end
+            reaper.ImGui_PopStyleColor(ctx)
+
+            reaper.ImGui_SameLine(ctx)
+            if reaper.ImGui_Button(ctx, "Parse Again") then
+                AIParser.state.result_markdown = nil
+                AIParser.state.error_message = nil
+            end
+
+        else
+            -- Parse button
+            if not has_input then
+                reaper.ImGui_BeginDisabled(ctx)
+            end
+
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0x0E639CFF)
+            if reaper.ImGui_Button(ctx, "Parse with AI") then
+                if has_input then
+                    AIParser.start_api_call(AIParser.state.input_text)
+                end
+            end
+            reaper.ImGui_PopStyleColor(ctx)
+
+            if not has_input then
+                reaper.ImGui_EndDisabled(ctx)
+            end
+        end
+
+        reaper.ImGui_SameLine(ctx)
+        if reaper.ImGui_Button(ctx, "Close") then
+            AIParser.hide()
+        end
+
+        reaper.ImGui_End(ctx)
+    end
+
+    if not open then
+        AIParser.hide()
     end
 end
 
@@ -932,6 +1213,9 @@ local function main_loop()
     if state.show_settings then
         render_settings_panel()
     end
+
+    -- Render AI Parse window (separate floating window)
+    render_ai_parse_window()
 
     -- Pop theme colors at end of frame
     pop_theme()
@@ -997,6 +1281,9 @@ local function init()
 
     -- Initialize teleprompter
     Teleprompter.init(ctx, fonts)
+
+    -- Initialize AI parser
+    AIParser.init(Utils, Config, json, project_dir)
 
     return true
 end

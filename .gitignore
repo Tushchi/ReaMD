@@ -1,0 +1,39 @@
+# ReaMD .gitignore
+
+# Temp files from AI Parser
+*.request
+*.response
+*.sh.tmp
+ai_parse_*.sh
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE / Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Development/Session files
+thoughts/
+*.log
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# User configuration (API keys stored in Reaper ExtState, not files)
+# But just in case someone creates local config:
+config.local.lua
+*.secret
+*.key
