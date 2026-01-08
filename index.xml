@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<index version="1" name="ReaMD" commit="27baed138fb174ce9f95c79fff907eb22c564b30">
+  <category name="Main">
+    <reapack name="ReaMD.lua" type="script" desc="ReaMD - Dockable Markdown Viewer for REAPER">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 ReaMD - Markdown Viewer for REAPER\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Dockable markdown viewer designed for audio production workflows. Link text fragments to timeline items, use teleprompter mode for VO, and format text with AI.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Features\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b Core}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Full markdown rendering (headers, lists, tables, code blocks, blockquotes)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Edit mode - create and modify markdown in REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Dark & Light themes\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b Scenario Mode}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Link text fragments to timeline items\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Multi-item support with category colors (V/M/F/O)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER group awareness\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Playback position tracking\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b Teleprompter}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab VO-focused display with auto-scroll\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Large centered text, progress indicator\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b AI Parse}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Convert unformatted text to markdown using Claude AI\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Customizable prompt template\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Async processing (non-blocking)\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.0+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.10+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab (Recommended) js_ReaScriptAPI, SWS Extension\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Note\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Tested on macOS Tahoe 26.2. Windows/Linux support expected but not verified.\par}
+}
+]]></description>
+        <link rel="website" href="https://forum.cockos.com/showthread.php?t=XXXXXX">Forum Thread</link>
+        <link rel="screenshot">https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/hero.png</link>
+        <link rel="donation">https://github.com/sponsors/b451c</link>
+      </metadata>
+      <version name="1.0.0" author="ReaMD Contributors" time="2026-01-08T14:13:11Z">
+        <changelog><![CDATA[Initial release]]></changelog>
+        <source main="main">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Main/ReaMD.lua</source>
+        <source file="../Libs/json.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/json.lua</source>
+        <source file="../Libs/md_parser.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/md_parser.lua</source>
+        <source file="../Libs/md_renderer.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/md_renderer.lua</source>
+        <source file="../Libs/scenario_engine.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/scenario_engine.lua</source>
+        <source file="../Libs/config.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/config.lua</source>
+        <source file="../Libs/utils.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/utils.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <metadata>
+    <link rel="website">https://github.com/b451c/ReaMD</link>
+  </metadata>
+</index>
