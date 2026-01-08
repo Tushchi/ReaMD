@@ -1,0 +1,37 @@
+name: Build ReaPack Index
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+
+      - name: Install reapack-index
+        run: gem install reapack-index
+
+      - name: Build index
+        run: |
+          reapack-index --check
+          reapack-index --name "ReaMD" --url "https://github.com/b451c/ReaMD/raw/main/index.xml"
+
+      - name: Commit and push index
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add index.xml
+          git diff --quiet --cached || git commit -m "Update ReaPack index"
+          git push

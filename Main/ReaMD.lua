@@ -1,27 +1,65 @@
--- @description ReaMD - Dockable Markdown Viewer with Timeline Sync
--- @author ReaMD Contributors
+-- @description ReaMD - Dockable Markdown Viewer for REAPER
+-- @author b4s1c
 -- @version 1.0.0
 -- @changelog
---   Initial release
+--   v1.0.0 (2026-01-08)
+--   + Initial public release
+--   + Full markdown rendering (headers, lists, tables, code blocks)
+--   + Scenario Mode with multi-item linking
+--   + Teleprompter mode with auto-scroll
+--   + AI Parse feature (Claude API integration)
+--   + Dark and Light themes
 -- @provides
 --   [main] ReaMD.lua
---   ../Libs/json.lua
---   ../Libs/md_parser.lua
---   ../Libs/md_renderer.lua
---   ../Libs/scenario_engine.lua
---   ../Libs/config.lua
---   ../Libs/utils.lua
+--   [nomain] ../Libs/ai_parser.lua
+--   [nomain] ../Libs/config.lua
+--   [nomain] ../Libs/json.lua
+--   [nomain] ../Libs/md_parser.lua
+--   [nomain] ../Libs/md_renderer.lua
+--   [nomain] ../Libs/scenario_engine.lua
+--   [nomain] ../Libs/teleprompter.lua
+--   [nomain] ../Libs/utils.lua
+--   [data] ../prompts/ai_format_prompt.txt
+-- @link GitHub https://github.com/b451c/ReaMD
+-- @link Forum Thread https://forum.cockos.com/showthread.php?t=XXXXXX
+-- @screenshot https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/hero.png
+-- @donation https://github.com/sponsors/b451c
 -- @about
---   # ReaMD - Markdown Viewer for Reaper
+--   # ReaMD - Markdown Viewer for REAPER
 --
---   A dockable markdown viewer with timeline synchronization for voice-over,
---   dubbing, and audio production workflows.
+--   Dockable markdown viewer designed for audio production workflows.
+--   Link text fragments to timeline items, use teleprompter mode for VO,
+--   and format text with AI.
 --
 --   ## Features
---   - Full markdown rendering (headers, lists, code blocks, etc.)
---   - Scenario Mode: sync text with Reaper regions
---   - Auto-scroll during playback
---   - Cross-platform (Windows, macOS, Linux)
+--
+--   **Core**
+--   - Full markdown rendering (headers, lists, tables, code blocks, blockquotes)
+--   - Edit mode - create and modify markdown in REAPER
+--   - Dark & Light themes
+--
+--   **Scenario Mode**
+--   - Link text fragments to timeline items
+--   - Multi-item support with category colors (V/M/F/O)
+--   - REAPER group awareness
+--   - Playback position tracking
+--
+--   **Teleprompter**
+--   - VO-focused display with auto-scroll
+--   - Large centered text, progress indicator
+--
+--   **AI Parse**
+--   - Convert unformatted text to markdown using Claude AI
+--   - Customizable prompt template
+--   - Async processing (non-blocking)
+--
+--   ## Requirements
+--   - REAPER 7.0+
+--   - ReaImGui 0.10+
+--   - (Recommended) js_ReaScriptAPI, SWS Extension
+--
+--   ## Note
+--   Tested on macOS Tahoe 26.2. Windows/Linux support expected but not verified.
 
 -- ===============================================================================
 -- SETUP: Module Loading and Path Configuration

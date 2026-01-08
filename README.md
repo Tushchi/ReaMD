@@ -83,29 +83,42 @@ Perfect for:
 | js_ReaScriptAPI | Latest | Recommended |
 | SWS Extension | Latest | Recommended |
 
-### Quick Install
+### Method 1: ReaPack (Recommended)
 
-1. **Install ReaImGui** (if not already installed):
-   - Open REAPER → Extensions → ReaPack → Browse packages
-   - Search for "ReaImGui" → Install
+1. **Add ReaMD repository to ReaPack:**
+   - Open REAPER → Extensions → ReaPack → Import repositories...
+   - Paste: `https://github.com/b451c/ReaMD/raw/main/index.xml`
+   - Click OK
 
-2. **Download ReaMD**:
-   - Download the [latest release](https://github.com/b451c/ReaMD/releases/latest)
-   - Or clone: `git clone https://github.com/b451c/ReaMD.git`
+2. **Install ReaMD:**
+   - Extensions → ReaPack → Browse packages
+   - Search for "ReaMD" → Right-click → Install
+   - Apply and restart REAPER
 
-3. **Copy to REAPER Scripts folder**:
+3. **Run:**
+   - Actions → Show action list
+   - Search for "ReaMD"
+   - Double-click to run (or assign shortcut)
+
+### Method 2: Manual Install
+
+1. **Download** the [latest release](https://github.com/b451c/ReaMD/releases/latest) or clone:
+   ```bash
+   git clone https://github.com/b451c/ReaMD.git
+   ```
+
+2. **Copy to REAPER Scripts folder:**
    ```
    Windows: %APPDATA%\REAPER\Scripts\ReaMD\
    macOS:   ~/Library/Application Support/REAPER/Scripts/ReaMD/
    Linux:   ~/.config/REAPER/Scripts/ReaMD/
    ```
 
-4. **Load the script**:
+3. **Load the script:**
    - REAPER → Actions → Load ReaScript
    - Select `Main/ReaMD.lua`
-   - Assign to toolbar or shortcut
 
-> **Tip:** For full functionality, also install [js_ReaScriptAPI](https://forum.cockos.com/showthread.php?t=212174) and [SWS Extension](https://www.sws-extension.org/).
+> **Tip:** For full functionality, install [ReaImGui](https://github.com/cfillion/reaimgui), [js_ReaScriptAPI](https://forum.cockos.com/showthread.php?t=212174), and [SWS Extension](https://www.sws-extension.org/).
 
 ---
 
