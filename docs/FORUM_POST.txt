@@ -1,0 +1,111 @@
+[SIZE=5][B]ReaMD - Markdown Viewer with Scenario Linking, Teleprompter & AI Parse[/B][/SIZE]
+
+Hey everyone,
+
+I work in podcast production, radio dramas, commercials, and general radio sound design - with occasional dubbing projects on the side. For years I wanted a tool that could clean up messy scripts from producers and clients, and also serve as a simple teleprompter for voice sync sessions. With the help of Claude AI, I finally built it. Hope it helps you as much as it helps me!
+
+[IMG]https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/hero.png[/IMG]
+
+[B]What is ReaMD?[/B]
+
+ReaMD is a dockable markdown viewer designed for audio production workflows. It bridges the gap between your scripts, notes, and the timeline - allowing you to link text fragments directly to items on your tracks.
+
+Perfect for [B]voiceover production[/B], [B]audio post-production[/B], [B]podcast editing[/B], and [B]music production[/B] (lyrics, arrangement notes).
+
+[SIZE=4][B]✨ Features[/B][/SIZE]
+
+[B]Core Markdown Support[/B]
+[LIST]
+[*]Full markdown rendering (headers, lists, tables, code blocks, blockquotes)
+[*]Edit mode - create and modify markdown directly in REAPER
+[*]Dark & Light themes
+[*]Dockable window
+[/LIST]
+
+[B]Scenario Mode - Link Text to Timeline[/B]
+[LIST]
+[*]Link text fragments to timeline items
+[*]Multi-item support (one fragment → multiple items)
+[*]Category colors: [COLOR=blue]V[/COLOR] (Voiceover), [COLOR=green]M[/COLOR] (Music), [COLOR=orange]F[/COLOR] (FX), [COLOR=gray]O[/COLOR] (Other)
+[*]REAPER group awareness
+[*]Playback position tracking - text highlights during playback
+[/LIST]
+
+[IMG]https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/scenario-demo.gif[/IMG]
+
+[B]Teleprompter Mode[/B]
+[LIST]
+[*]VO-focused display with auto-scroll
+[*]Large centered text (48px)
+[*]Semi-transparent overlay (50% opacity)
+[*]Progress indicator (orange → green)
+[/LIST]
+
+[IMG]https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/teleprompter-demo.gif[/IMG]
+
+[B]AI Parse (Claude Integration)[/B]
+[LIST]
+[*]Paste unformatted text → get clean markdown
+[*]Async processing (non-blocking UI)
+[*]Customizable prompt template
+[*]Uses Claude Haiku (fast & cheap)
+[/LIST]
+
+[IMG]https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/ai-parse-demo.gif[/IMG]
+
+[SIZE=4][B]📦 Installation[/B][/SIZE]
+
+[B]Method 1: ReaPack (Recommended)[/B]
+
+1. [B]Extensions → ReaPack → Import repositories...[/B]
+2. Paste: [CODE]https://github.com/b451c/ReaMD/raw/main/index.xml[/CODE]
+3. [B]Extensions → ReaPack → Browse packages[/B] → Search "ReaMD" → Install
+4. Restart REAPER, find "ReaMD" in Actions
+
+[B]Method 2: Manual[/B]
+
+Download from GitHub: [URL="https://github.com/b451c/ReaMD/releases/latest"]https://github.com/b451c/ReaMD/releases[/URL]
+Copy to your REAPER Scripts folder, load via Actions → Load ReaScript.
+
+[SIZE=4][B]📋 Requirements[/B][/SIZE]
+
+[LIST]
+[*][B]REAPER 7.0+[/B]
+[*][B]ReaImGui 0.10+[/B] (required)
+[*]js_ReaScriptAPI (recommended)
+[*]SWS Extension (recommended)
+[/LIST]
+
+[SIZE=4][B]🖼️ More Screenshots[/B][/SIZE]
+
+[B]Dark & Light Themes[/B]
+[IMG]https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/themes.png[/IMG]
+
+[B]Settings Panel[/B]
+[IMG]https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/settings.png[/IMG]
+
+[B]AI Parse Window[/B]
+[IMG]https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/ai-parse-window.png[/IMG]
+
+[SIZE=4][B]🔗 Links[/B][/SIZE]
+
+[LIST]
+[*][B]GitHub:[/B] [URL="https://github.com/b451c/ReaMD"]https://github.com/b451c/ReaMD[/URL]
+[*][B]Documentation:[/B] [URL="https://github.com/b451c/ReaMD#readme"]README[/URL] | [URL="https://github.com/b451c/ReaMD/blob/main/docs/INSTALLATION.md"]Installation Guide[/URL] | [URL="https://github.com/b451c/ReaMD/blob/main/docs/AI_SETUP.md"]AI Setup[/URL]
+[*][B]Issues/Feedback:[/B] [URL="https://github.com/b451c/ReaMD/issues"]GitHub Issues[/URL]
+[*][B]Buy Me a Coffee:[/B] [URL="https://buymeacoffee.com/bsroczynskh"]buymeacoffee.com/bsroczynskh[/URL]
+[/LIST]
+
+[SIZE=4][B]⚠️ Note[/B][/SIZE]
+
+Tested on [B]macOS Tahoe 26.2[/B]. Windows and Linux support is expected but not yet verified. Feedback from other platforms welcome!
+
+[SIZE=4][B]📜 License[/B][/SIZE]
+
+MIT License - free to use, modify, and distribute.
+
+---
+
+I hope you find this useful! All suggestions for improvements, feature requests, and bug reports are very welcome - either via GitHub Issues or directly in this thread.
+
+[I]If you like ReaMD, consider giving it a ⭐ on GitHub![/I]

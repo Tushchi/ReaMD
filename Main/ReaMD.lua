@@ -23,7 +23,7 @@
 -- @link GitHub https://github.com/b451c/ReaMD
 -- @link Forum Thread https://forum.cockos.com/showthread.php?t=XXXXXX
 -- @screenshot https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/hero.png
--- @donation https://github.com/sponsors/b451c
+-- @donation https://buymeacoffee.com/bsroczynskh
 -- @about
 --   # ReaMD - Markdown Viewer for REAPER
 --
