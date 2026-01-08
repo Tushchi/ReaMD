@@ -26,6 +26,9 @@
   <img src="https://img.shields.io/github/v/release/b451c/ReaMD?style=flat-square" alt="Release">
 </p>
 
+> [!NOTE]
+> **Tested on macOS Tahoe 26.2.** Windows and Linux support is expected but not yet verified. Contributions and feedback from other platforms are welcome!
+
 ---
 
 ## What is ReaMD?
