@@ -1,5 +1,15 @@
 # ReaMD .gitignore
 
+# macOS
+.DS_Store
+
+# Claude session files
+.claude/
+thoughts/
+
+# Draft files
+docs/FORUM_POST.txt
+
 # Temp files from AI Parser
 *.request
 *.response
