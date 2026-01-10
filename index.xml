@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="ReaMD" commit="f8d94f2cd5988278fb8a31cbdef1a1cfa632453e">
+<index version="1" name="ReaMD" commit="1469ba38edec0e81aece5392142c309e131bc277">
   <category name="Main">
     <reapack name="ReaMD.lua" type="script" desc="ReaMD - Dockable Markdown Viewer for REAPER">
       <metadata>
@@ -34,7 +34,7 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 Tested on macOS Tahoe 26.2. Windows/Linux support expected but not verified.\par}
 }
 ]]></description>
-        <link rel="website" href="https://forum.cockos.com/showthread.php?t=XXXXXX">Forum Thread</link>
+        <link rel="website" href="https://forum.cockos.com/showthread.php?p=2915326">Forum Thread</link>
         <link rel="screenshot">https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/hero.png</link>
         <link rel="donation">https://buymeacoffee.com/bsroczynskh</link>
       </metadata>
