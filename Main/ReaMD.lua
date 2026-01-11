@@ -1,7 +1,9 @@
 -- @description ReaMD - Dockable Markdown Viewer for REAPER
 -- @author b4s1c
--- @version 1.0.2
+-- @version 1.0.3
 -- @changelog
+--   v1.0.3 (2026-01-11)
+--   * Fix ImGui ID conflict when recent files have same filename
 --   v1.0.2 (2026-01-11)
 --   * Update welcome message to reflect current features
 --   v1.0.1 (2026-01-10)
@@ -681,9 +683,9 @@ local function render_toolbar()
             reaper.ImGui_TextDisabled(ctx, "Recent:")
 
             for _, path in ipairs(recent) do
-                -- Show only filename
+                -- Show only filename, use full path as unique ID
                 local name = path:match("([^/\\]+)$") or path
-                if reaper.ImGui_MenuItem(ctx, name) then
+                if reaper.ImGui_MenuItem(ctx, name .. "##" .. path) then
                     load_markdown_file(path)
                 end
             end
