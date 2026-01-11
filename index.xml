@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="ReaMD" commit="1c471931359d34aa7791dfddfac83bcb0fc79689">
+<index version="1" name="ReaMD" commit="77cec87625f366915681be19435d6dd082d62c68">
   <category name="Main">
     <reapack name="ReaMD.lua" type="script" desc="ReaMD - Dockable Markdown Viewer for REAPER">
       <metadata>
@@ -10,112 +10,67 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 ReaMD - Markdown Viewer for REAPER\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Dockable markdown viewer designed for audio production workflows. Link text fragments to timeline items, use teleprompter mode for VO, and format text with AI.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Features\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 {\b Core}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Full markdown rendering (headers, lists, tables, code blocks, blockquotes)\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Edit mode - create and modify markdown in REAPER\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Dark & Light themes\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 {\b Scenario Mode}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Link text fragments to timeline items\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Multi-item support with category colors (V/M/F/O)\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER group awareness\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Playback position tracking\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 {\b Teleprompter}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab VO-focused display with auto-scroll\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Large centered text, progress indicator\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 {\b AI Parse}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Convert unformatted text to markdown using Claude AI\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Customizable prompt template\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Async processing (non-blocking)\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Full markdown rendering (headers, lists, tables, code blocks)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Live Preview in edit mode\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Scenario Mode - link text to timeline items\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Teleprompter with auto-scroll\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab AI Parse (Claude API)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Dark and Light themes\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.0+\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.10+\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab (Recommended) js_ReaScriptAPI, SWS Extension\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Note\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 Tested on macOS Tahoe 26.2. Windows/Linux support expected but not verified.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.10+\sa180\par}
 }
 ]]></description>
         <link rel="website" href="https://forum.cockos.com/showthread.php?p=2915326">Forum Thread</link>
         <link rel="screenshot">https://raw.githubusercontent.com/b451c/ReaMD/main/docs/images/hero.png</link>
         <link rel="donation">https://buymeacoffee.com/bsroczynskh</link>
       </metadata>
-      <version name="1.0.0" author="ReaMD Contributors" time="2026-01-08T14:13:11Z">
-        <changelog><![CDATA[Initial release]]></changelog>
-        <source main="main">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Main/ReaMD.lua</source>
-        <source file="../Libs/json.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/json.lua</source>
-        <source file="../Libs/md_parser.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/md_parser.lua</source>
-        <source file="../Libs/md_renderer.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/md_renderer.lua</source>
-        <source file="../Libs/scenario_engine.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/scenario_engine.lua</source>
-        <source file="../Libs/config.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/config.lua</source>
-        <source file="../Libs/utils.lua">https://github.com/b451c/ReaMD/raw/1cfc07c224b666770ac056c03ec22dc72e682c81/Libs/utils.lua</source>
+      <version name="1.0.0" author="b4s1c" time="2026-01-08T14:13:11Z">
+        <changelog><![CDATA[+ Initial public release
++ Full markdown rendering
++ Scenario Mode with item linking
++ Teleprompter mode
++ AI Parse feature
++ Dark and Light themes]]></changelog>
+        <source main="main">https://github.com/b451c/ReaMD/raw/v1.0.0/Main/ReaMD.lua</source>
+        <source file="../Libs/json.lua">https://github.com/b451c/ReaMD/raw/v1.0.0/Libs/json.lua</source>
+        <source file="../Libs/md_parser.lua">https://github.com/b451c/ReaMD/raw/v1.0.0/Libs/md_parser.lua</source>
+        <source file="../Libs/md_renderer.lua">https://github.com/b451c/ReaMD/raw/v1.0.0/Libs/md_renderer.lua</source>
+        <source file="../Libs/scenario_engine.lua">https://github.com/b451c/ReaMD/raw/v1.0.0/Libs/scenario_engine.lua</source>
+        <source file="../Libs/config.lua">https://github.com/b451c/ReaMD/raw/v1.0.0/Libs/config.lua</source>
+        <source file="../Libs/utils.lua">https://github.com/b451c/ReaMD/raw/v1.0.0/Libs/utils.lua</source>
       </version>
       <version name="1.0.1" author="b4s1c" time="2026-01-10T19:49:36Z">
-        <changelog><![CDATA[v1.0.1 (2026-01-10)
-* Fix ReaPack installation - include all required files (ai_parser.lua, teleprompter.lua, ai_format_prompt.txt)
-v1.0.0 (2026-01-08)
-+ Initial public release
-+ Full markdown rendering (headers, lists, tables, code blocks)
-+ Scenario Mode with multi-item linking
-+ Teleprompter mode with auto-scroll
-+ AI Parse feature (Claude API integration)
-+ Dark and Light themes]]></changelog>
-        <source main="main">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Main/ReaMD.lua</source>
-        <source file="../Libs/ai_parser.lua">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Libs/ai_parser.lua</source>
-        <source file="../Libs/config.lua">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Libs/config.lua</source>
-        <source file="../Libs/json.lua">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Libs/json.lua</source>
-        <source file="../Libs/md_parser.lua">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Libs/md_parser.lua</source>
-        <source file="../Libs/md_renderer.lua">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Libs/md_renderer.lua</source>
-        <source file="../Libs/scenario_engine.lua">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Libs/scenario_engine.lua</source>
-        <source file="../Libs/teleprompter.lua">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Libs/teleprompter.lua</source>
-        <source file="../Libs/utils.lua">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/Libs/utils.lua</source>
-        <source type="data" file="../prompts/ai_format_prompt.txt">https://github.com/b451c/ReaMD/raw/f8d94f2cd5988278fb8a31cbdef1a1cfa632453e/prompts/ai_format_prompt.txt</source>
+        <changelog><![CDATA[* Fix ReaPack installation - include missing files (ai_parser, teleprompter, prompt)]]></changelog>
+        <source main="main">https://github.com/b451c/ReaMD/raw/v1.0.1/Main/ReaMD.lua</source>
+        <source file="../Libs/ai_parser.lua">https://github.com/b451c/ReaMD/raw/v1.0.1/Libs/ai_parser.lua</source>
+        <source file="../Libs/config.lua">https://github.com/b451c/ReaMD/raw/v1.0.1/Libs/config.lua</source>
+        <source file="../Libs/json.lua">https://github.com/b451c/ReaMD/raw/v1.0.1/Libs/json.lua</source>
+        <source file="../Libs/md_parser.lua">https://github.com/b451c/ReaMD/raw/v1.0.1/Libs/md_parser.lua</source>
+        <source file="../Libs/md_renderer.lua">https://github.com/b451c/ReaMD/raw/v1.0.1/Libs/md_renderer.lua</source>
+        <source file="../Libs/scenario_engine.lua">https://github.com/b451c/ReaMD/raw/v1.0.1/Libs/scenario_engine.lua</source>
+        <source file="../Libs/teleprompter.lua">https://github.com/b451c/ReaMD/raw/v1.0.1/Libs/teleprompter.lua</source>
+        <source file="../Libs/utils.lua">https://github.com/b451c/ReaMD/raw/v1.0.1/Libs/utils.lua</source>
+        <source type="data" file="../prompts/ai_format_prompt.txt">https://github.com/b451c/ReaMD/raw/v1.0.1/prompts/ai_format_prompt.txt</source>
       </version>
-      <version name="1.0.2" author="b4s1c" time="2026-01-11T02:14:49Z">
-        <changelog><![CDATA[v1.0.2 (2026-01-11)
-* Update welcome message to reflect current features
-v1.0.1 (2026-01-10)
-* Fix ReaPack installation - include all required files (ai_parser.lua, teleprompter.lua, ai_format_prompt.txt)
-v1.0.0 (2026-01-08)
-+ Initial public release
-+ Full markdown rendering (headers, lists, tables, code blocks)
-+ Scenario Mode with multi-item linking
-+ Teleprompter mode with auto-scroll
-+ AI Parse feature (Claude API integration)
-+ Dark and Light themes]]></changelog>
-        <source main="main">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Main/ReaMD.lua</source>
-        <source file="../Libs/ai_parser.lua">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Libs/ai_parser.lua</source>
-        <source file="../Libs/config.lua">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Libs/config.lua</source>
-        <source file="../Libs/json.lua">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Libs/json.lua</source>
-        <source file="../Libs/md_parser.lua">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Libs/md_parser.lua</source>
-        <source file="../Libs/md_renderer.lua">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Libs/md_renderer.lua</source>
-        <source file="../Libs/scenario_engine.lua">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Libs/scenario_engine.lua</source>
-        <source file="../Libs/teleprompter.lua">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Libs/teleprompter.lua</source>
-        <source file="../Libs/utils.lua">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/Libs/utils.lua</source>
-        <source type="data" file="../prompts/ai_format_prompt.txt">https://github.com/b451c/ReaMD/raw/605a55c36ca9d80a64ee0a483461693421225e77/prompts/ai_format_prompt.txt</source>
-      </version>
-      <version name="1.0.3" author="b4s1c" time="2026-01-11T02:18:26Z">
-        <changelog><![CDATA[v1.0.3 (2026-01-11)
-* Fix ImGui ID conflict when recent files have same filename
-v1.0.2 (2026-01-11)
-* Update welcome message to reflect current features
-v1.0.1 (2026-01-10)
-* Fix ReaPack installation - include all required files (ai_parser.lua, teleprompter.lua, ai_format_prompt.txt)
-v1.0.0 (2026-01-08)
-+ Initial public release
-+ Full markdown rendering (headers, lists, tables, code blocks)
-+ Scenario Mode with multi-item linking
-+ Teleprompter mode with auto-scroll
-+ AI Parse feature (Claude API integration)
-+ Dark and Light themes]]></changelog>
-        <source main="main">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Main/ReaMD.lua</source>
-        <source file="../Libs/ai_parser.lua">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Libs/ai_parser.lua</source>
-        <source file="../Libs/config.lua">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Libs/config.lua</source>
-        <source file="../Libs/json.lua">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Libs/json.lua</source>
-        <source file="../Libs/md_parser.lua">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Libs/md_parser.lua</source>
-        <source file="../Libs/md_renderer.lua">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Libs/md_renderer.lua</source>
-        <source file="../Libs/scenario_engine.lua">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Libs/scenario_engine.lua</source>
-        <source file="../Libs/teleprompter.lua">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Libs/teleprompter.lua</source>
-        <source file="../Libs/utils.lua">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/Libs/utils.lua</source>
-        <source type="data" file="../prompts/ai_format_prompt.txt">https://github.com/b451c/ReaMD/raw/1c471931359d34aa7791dfddfac83bcb0fc79689/prompts/ai_format_prompt.txt</source>
+      <version name="1.0.3" author="b4s1c" time="2026-01-11T03:14:07Z">
+        <changelog><![CDATA[+ Live Preview in edit mode (split view)
++ Theme-aware button colors (dark/light)
++ Recent files auto-cleanup
+* Light theme redesigned for better contrast
+* Settings persistence fix
+* Tooltip readability fix in dark mode
+* Recent files limit increased to 10]]></changelog>
+        <source main="main">https://github.com/b451c/ReaMD/raw/v1.0.3/Main/ReaMD.lua</source>
+        <source file="../Libs/ai_parser.lua">https://github.com/b451c/ReaMD/raw/v1.0.3/Libs/ai_parser.lua</source>
+        <source file="../Libs/config.lua">https://github.com/b451c/ReaMD/raw/v1.0.3/Libs/config.lua</source>
+        <source file="../Libs/json.lua">https://github.com/b451c/ReaMD/raw/v1.0.3/Libs/json.lua</source>
+        <source file="../Libs/md_parser.lua">https://github.com/b451c/ReaMD/raw/v1.0.3/Libs/md_parser.lua</source>
+        <source file="../Libs/md_renderer.lua">https://github.com/b451c/ReaMD/raw/v1.0.3/Libs/md_renderer.lua</source>
+        <source file="../Libs/scenario_engine.lua">https://github.com/b451c/ReaMD/raw/v1.0.3/Libs/scenario_engine.lua</source>
+        <source file="../Libs/teleprompter.lua">https://github.com/b451c/ReaMD/raw/v1.0.3/Libs/teleprompter.lua</source>
+        <source file="../Libs/utils.lua">https://github.com/b451c/ReaMD/raw/v1.0.3/Libs/utils.lua</source>
+        <source type="data" file="../prompts/ai_format_prompt.txt">https://github.com/b451c/ReaMD/raw/v1.0.3/prompts/ai_format_prompt.txt</source>
       </version>
     </reapack>
   </category>
@@ -125,15 +80,11 @@ v1.0.0 (2026-01-08)
 \widowctrl\hyphauto
 
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 ReaMD - Markdown Viewer for REAPER\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 Dockable markdown viewer for audio production workflows. Link text fragments to timeline items, use teleprompter mode for VO, and format text with AI.\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Key Features\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Dockable markdown viewer for audio production workflows.\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Scenario Linking} - Connect text to timeline items\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Teleprompter} - Auto-scrolling VO display\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b AI Parse} - Convert messy text to clean markdown (Claude API)\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Full Markdown} - Headers, lists, tables, code blocks\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.0+\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.10+\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b AI Parse} - Format text with Claude API\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Live Preview} - Edit with real-time preview\sa180\par}
 {\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 MIT License | https://github.com/b451c/ReaMD\par}
 }
