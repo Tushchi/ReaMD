@@ -72,6 +72,176 @@ v1.0.0 (2026-01-08)
     </reapack>
   </category>
   <metadata>
+    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li720 \fi0 [!NOTE] {\b Tested on macOS Tahoe 26.2.} Windows and Linux support is expected but not yet verified. Contributions and feedback from other platforms are welcome!\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 What is ReaMD?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 ReaMD is a {\b dockable markdown viewer} designed specifically for audio production workflows in REAPER. It bridges the gap between your scripts, notes, and the timeline - allowing you to link text fragments directly to items on your tracks.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Perfect for:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Voiceover production} - Link script lines to VO recordings\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Audio post-production} - Sync scene descriptions with sound design\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Podcast editing} - Follow show notes while editing\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Music production} - Keep lyrics and arrangement notes in view\sa180\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Features\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Core Markdown Support\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Full markdown rendering (headers, lists, tables, code blocks, blockquotes)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Edit mode} - Write and modify markdown directly in REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Dark & Light themes} - Seamlessly match your REAPER theme\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Dockable window - Integrate into your workflow\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Scenario Linking\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Link text fragments to timeline items} - Click a paragraph, jump to the item\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Multi-item support} - One fragment can reference multiple items\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Category colors} - V (Voiceover), M (Music), F (FX), O (Other)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Group awareness} - REAPER item groups treated as single units\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Visual feedback} - Linked fragments highlighted, playback position tracked\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Teleprompter Mode\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b VO-focused display} - Shows only voiceover text, large and centered\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Auto-scroll} - Follows playback position automatically\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Progress indicator} - Orange (next cue) / Green (current item ending)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Semi-transparent overlay} - 50% opacity, stays out of the way\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 AI Parse (Claude Integration)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Paste unformatted text} - Meeting notes, raw scripts, brain dumps\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b AI formats to markdown} - Clean structure with proper headings and lists\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Customizable prompt} - Tailor the AI behavior to your workflow\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\b Non-blocking} - Async processing, UI stays responsive\sa180\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Installation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Requirements\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 | Component | Version | Required | |-----------|---------|----------| | REAPER | 7.0+ | Yes | | ReaImGui | 0.10+ | Yes | | js_ReaScriptAPI | Latest | Recommended | | SWS Extension | Latest | Recommended |\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Method 1: ReaPack (Recommended)\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Add ReaMD repository to ReaPack:}\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Open REAPER \u8594 ? Extensions \u8594 ? ReaPack \u8594 ? Import repositories...\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Paste: {\f1 https://github.com/b451c/ReaMD/raw/main/index.xml}\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Click OK\sa180\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 2.\tx360\tab {\b Install ReaMD:}\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Extensions \u8594 ? ReaPack \u8594 ? Browse packages\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Search for "ReaMD" \u8594 ? Right-click \u8594 ? Install\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Apply and restart REAPER\sa180\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 3.\tx360\tab {\b Run:}\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Actions \u8594 ? Show action list\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Search for "ReaMD"\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Double-click to run (or assign shortcut)\sa180\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Method 2: Manual Install\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 1.\tx360\tab {\b Download} the {\field{\*\fldinst{HYPERLINK "https://github.com/b451c/ReaMD/releases/latest"}}{\fldrslt{\ul
+latest release
+}}}
+ or clone:\par}
+{\pard \ql \f0 \sa180 \li360 \fi0 \f1 git clone https://github.com/b451c/ReaMD.git\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 2.\tx360\tab {\b Copy to REAPER Scripts folder:}\par}
+{\pard \ql \f0 \sa180 \li360 \fi0 \f1 Windows: %APPDATA%\\REAPER\\Scripts\\ReaMD\\\line
+macOS:   ~/Library/Application Support/REAPER/Scripts/ReaMD/\line
+Linux:   ~/.config/REAPER/Scripts/ReaMD/\par}
+{\pard \ql \f0 \sa180 \li360 \fi-360 3.\tx360\tab {\b Load the script:}\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab REAPER \u8594 ? Actions \u8594 ? Load ReaScript\par}
+{\pard \ql \f0 \sa0 \li720 \fi-360 \endash \tx360\tab Select {\f1 Main/ReaMD.lua}\sa180\sa180\par}
+{\pard \ql \f0 \sa180 \li720 \fi0 {\b Tip:} For full functionality, install {\field{\*\fldinst{HYPERLINK "https://github.com/cfillion/reaimgui"}}{\fldrslt{\ul
+ReaImGui
+}}}
+, {\field{\*\fldinst{HYPERLINK "https://forum.cockos.com/showthread.php?t=212174"}}{\fldrslt{\ul
+js_ReaScriptAPI
+}}}
+, and {\field{\*\fldinst{HYPERLINK "https://www.sws-extension.org/"}}{\fldrslt{\ul
+SWS Extension
+}}}
+.\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Usage\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Basic Workflow\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab {\b Open a markdown file} - Click "Open..." or drag & drop\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab {\b Dock the window} - Right-click title bar \u8594 ? Dock\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab {\b Browse your script} - Scroll, search, navigate headings\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Scenario Linking\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab {\b Enter Scenario Mode} - Toggle "Scenario" in toolbar\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab {\b Select items on timeline} - The items you want to link\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab {\b Click [+] on a text fragment} - Links selected items to that text\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab {\b Click linked text} - Jumps to and selects the items\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab {\b Play} - Text highlights follow playback position\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Teleprompter\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab {\b Set up scenario links} - At least link your VO items\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab {\b Click "Teleprompter"} - Opens focused display window\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab {\b Start playback} - Text auto-scrolls with timeline\sa180\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 AI Parse\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Transform unstructured text into clean markdown using Claude AI.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Setup\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Get an API key from {\field{\*\fldinst{HYPERLINK "https://console.anthropic.com/"}}{\fldrslt{\ul
+Anthropic Console
+}}}
+\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab In ReaMD, open {\b Settings} (gear icon)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Paste your API key in the "AI Parser Settings" section\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Usage\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Click {\b New \u8594 ? AI Parse...}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Paste your unformatted text\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Click {\b Parse with AI}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Review the result \u8594 ? {\b Save As...}\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Customize the Prompt\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Click {\b Edit Prompt} in settings to modify {\f1 prompts/ai_format_prompt.txt}. Tailor it for your specific use case (voiceover scripts, technical docs, meeting notes, etc.).\par}
+{\pard \ql \f0 \sa180 \li720 \fi0 {\b Note:} AI Parse requires an internet connection and uses the Claude Haiku model for fast, cost-effective processing.\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Screenshots\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 File Structure\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 ReaMD/\line
+\u9500 ?\u9472 ?\u9472 ? Main/\line
+\u9474 ?   \u9492 ?\u9472 ?\u9472 ? ReaMD.lua           # Main script (run this)\line
+\u9500 ?\u9472 ?\u9472 ? Libs/\line
+\u9474 ?   \u9500 ?\u9472 ?\u9472 ? ai_parser.lua       # AI integration module\line
+\u9474 ?   \u9500 ?\u9472 ?\u9472 ? config.lua          # Settings management\line
+\u9474 ?   \u9500 ?\u9472 ?\u9472 ? json.lua            # JSON encoder/decoder\line
+\u9474 ?   \u9500 ?\u9472 ?\u9472 ? md_parser.lua       # Markdown parser\line
+\u9474 ?   \u9500 ?\u9472 ?\u9472 ? md_renderer.lua     # ReaImGui renderer\line
+\u9474 ?   \u9500 ?\u9472 ?\u9472 ? scenario_engine.lua # Timeline linking engine\line
+\u9474 ?   \u9500 ?\u9472 ?\u9472 ? teleprompter.lua    # Teleprompter mode\line
+\u9474 ?   \u9492 ?\u9472 ?\u9472 ? utils.lua           # Utility functions\line
+\u9492 ?\u9472 ?\u9472 ? prompts/\line
+    \u9492 ?\u9472 ?\u9472 ? ai_format_prompt.txt # Customizable AI prompt\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Troubleshooting\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 "ReaImGui not found"\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Install ReaImGui via ReaPack: Extensions \u8594 ? ReaPack \u8594 ? Browse packages \u8594 ? Search "ReaImGui"\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 AI Parse not working\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Verify your API key is correct in Settings\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Check internet connection\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab On Windows, ensure {\f1 curl} is available (comes with Windows 10+)\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Teleprompter not following playback\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Ensure scenario links are set up (fragments linked to timeline items)\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Check that linked items exist on the timeline\sa180\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Contributing\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Contributions are welcome! Please feel free to submit issues and pull requests.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Fork the repository\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Create your feature branch ({\f1 git checkout -b feature/amazing-feature})\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Commit your changes ({\f1 git commit -m 'Add amazing feature'})\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Push to the branch ({\f1 git push origin feature/amazing-feature})\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab Open a Pull Request\sa180\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 This project is licensed under the MIT License - see the {\field{\*\fldinst{HYPERLINK "LICENSE"}}{\fldrslt{\ul
+LICENSE
+}}}
+ file for details.\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Acknowledgments\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://github.com/cfillion/reaimgui"}}{\fldrslt{\ul
+ReaImGui
+}}}
+ by cfillion - Amazing ImGui bindings for REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.reaper.fm/"}}{\fldrslt{\ul
+REAPER
+}}}
+ by Cockos - The best DAW for scripting\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\field{\*\fldinst{HYPERLINK "https://www.anthropic.com/"}}{\fldrslt{\ul
+Anthropic
+}}}
+ - Claude AI for text formatting\sa180\par}
+{\pard \qc \f0 \sa180 \li0 \fi0 \emdash\emdash\emdash\emdash\emdash\par}
+}
+]]></description>
     <link rel="website">https://github.com/b451c/ReaMD</link>
   </metadata>
 </index>
