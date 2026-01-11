@@ -8,6 +8,9 @@ local Renderer = {}
 local Parser = require("md_parser")
 local NT = Parser.NodeTypes
 
+-- Import config for theme-aware colors
+local Config = require("config")
+
 -- ===============================================================================
 -- COLOR CONSTANTS
 -- ===============================================================================
@@ -20,6 +23,19 @@ local COLORS = {
     blockquote_line = 0x666666FF, -- Gray line for blockquote
     highlight = 0x3366CC66,      -- Semi-transparent highlight (increased from 33 to 66)
 }
+
+--- Get neutral button colors based on current theme
+-- @return number, number, number, number: button, hovered, active, text colors
+local function get_neutral_button_colors()
+    local theme = Config.get("theme")
+    if theme == "dark" then
+        -- Darker button with white text for dark theme
+        return 0x606060FF, 0x707070FF, 0x505050FF, 0xFFFFFFFF
+    else
+        -- Lighter button with dark text for light theme
+        return 0xA0A0A0FF, 0xB0B0B0FF, 0x909090FF, 0x000000FF
+    end
+end
 
 -- ===============================================================================
 -- LAYOUT CONSTANTS
@@ -347,11 +363,13 @@ local function render_item_linker(ctx, state, line_start, line_end, identifier, 
         reaper.ImGui_SameLine(ctx)
     end
 
-    -- [+] button - add item from selection (neutral gray, works in both themes)
+    -- [+] button - add item from selection (theme-aware neutral color)
     -- If item is in a group, adds all items from that group
-    reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0xA0A0A0FF)
-    reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), 0xB8B8B8FF)
-    reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(), 0x909090FF)
+    local btn_color, btn_hover, btn_active, btn_text = get_neutral_button_colors()
+    reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), btn_color)
+    reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), btn_hover)
+    reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(), btn_active)
+    reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Text(), btn_text)
     if reaper.ImGui_SmallButton(ctx, add_id) then
         local item, guid, all_guids = scenario.get_selected_item()
         if item and all_guids and #all_guids > 0 then
@@ -369,17 +387,19 @@ local function render_item_linker(ctx, state, line_start, line_end, identifier, 
             state.scenario_changed = true
         end
     end
-    reaper.ImGui_PopStyleColor(ctx, 3)
-    if reaper.ImGui_IsItemHovered(ctx) then
+    local add_hovered = reaper.ImGui_IsItemHovered(ctx)
+    reaper.ImGui_PopStyleColor(ctx, 4)
+    if add_hovered then
         reaper.ImGui_SetTooltip(ctx, "Select item on timeline, click + to link")
     end
 
-    -- [N] badge - show count, click to open popup (neutral gray, works in both themes)
+    -- [N] badge - show count, click to open popup (theme-aware neutral color)
     if count > 0 then
         reaper.ImGui_SameLine(ctx)
-        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0xA0A0A0FF)
-        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), 0xB8B8B8FF)
-        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(), 0x909090FF)
+        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), btn_color)
+        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonHovered(), btn_hover)
+        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_ButtonActive(), btn_active)
+        reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Text(), btn_text)
         if reaper.ImGui_SmallButton(ctx, badge_id) then
             -- Toggle popup
             if popup_state.open_for_line == line_start then
@@ -389,10 +409,11 @@ local function render_item_linker(ctx, state, line_start, line_end, identifier, 
                 reaper.ImGui_OpenPopup(ctx, popup_id)
             end
         end
-        if reaper.ImGui_IsItemHovered(ctx) then
+        local badge_hovered = reaper.ImGui_IsItemHovered(ctx)
+        reaper.ImGui_PopStyleColor(ctx, 4)
+        if badge_hovered then
             reaper.ImGui_SetTooltip(ctx, count .. " item(s) linked - click to manage")
         end
-        reaper.ImGui_PopStyleColor(ctx, 3)
 
         -- Popup with item list
         if reaper.ImGui_BeginPopup(ctx, popup_id) then

@@ -23,6 +23,7 @@ Config.defaults = {
     last_directory = "",             -- Last opened folder
     recent_files = "",               -- Recent files (pipe-separated paths)
     ai_api_key = "",                 -- Anthropic API key for AI parsing
+    live_preview = true,             -- Show live preview while editing
 }
 
 -- Type definitions for proper conversion from ExtState strings
@@ -38,6 +39,7 @@ local setting_types = {
     last_directory = "string",
     recent_files = "string",
     ai_api_key = "string",
+    live_preview = "boolean",
 }
 
 -- Current settings (initialized as copy of defaults)
@@ -207,7 +209,7 @@ end
 -- RECENT FILES HELPERS
 -- ═══════════════════════════════════════════════════════════════════════════
 
-local MAX_RECENT_FILES = 8
+local MAX_RECENT_FILES = 10
 
 --- Get list of recent files
 -- @return table: Array of file paths
@@ -248,6 +250,27 @@ function Config.add_recent_file(path)
 
     -- Save as pipe-separated string
     Config.set("recent_files", table.concat(files, "|"))
+end
+
+--- Remove file from recent files list
+-- @param path string: File path to remove
+function Config.remove_recent_file(path)
+    if not path or path == "" then return end
+
+    local files = Config.get_recent_files()
+    local changed = false
+
+    for i = #files, 1, -1 do
+        if files[i] == path then
+            table.remove(files, i)
+            changed = true
+        end
+    end
+
+    if changed then
+        Config.set("recent_files", table.concat(files, "|"))
+        Config.save()
+    end
 end
 
 -- ═══════════════════════════════════════════════════════════════════════════

@@ -690,13 +690,25 @@ local function render_toolbar()
             open_file_dialog()
         end
 
-        -- Recent files
+        -- Recent files (filter out non-existent files)
         local recent = Config.get_recent_files()
-        if #recent > 0 then
+        local valid_recent = {}
+        for _, path in ipairs(recent) do
+            local f = io.open(path, "r")
+            if f then
+                f:close()
+                table.insert(valid_recent, path)
+            else
+                -- Remove non-existent file from list
+                Config.remove_recent_file(path)
+            end
+        end
+
+        if #valid_recent > 0 then
             reaper.ImGui_Separator(ctx)
             reaper.ImGui_TextDisabled(ctx, "Recent:")
 
-            for _, path in ipairs(recent) do
+            for _, path in ipairs(valid_recent) do
                 -- Show only filename, use full path as unique ID
                 local name = path:match("([^/\\]+)$") or path
                 if reaper.ImGui_MenuItem(ctx, name .. "##" .. path) then
@@ -717,9 +729,15 @@ local function render_toolbar()
         reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0xCC9933FF)
     end
     if reaper.ImGui_Button(ctx, edit_label) then
+        local was_editing = state.edit_mode
         state.edit_mode = not state.edit_mode
         if state.edit_mode then
             show_status("Edit mode: modify text, click Save")
+        else
+            -- Exiting edit mode: re-parse if content was changed
+            if was_editing and state.edit_changed and state.markdown_content then
+                state.parsed_ast = Parser.parse(state.markdown_content)
+            end
         end
     end
     if edit_active then
@@ -734,6 +752,23 @@ local function render_toolbar()
             save_markdown_file()
         end
         reaper.ImGui_PopStyleColor(ctx)
+    end
+
+    -- Live Preview toggle (only visible in edit mode)
+    if state.edit_mode then
+        reaper.ImGui_SameLine(ctx)
+        local live_preview = Config.get("live_preview")
+        local preview_label = live_preview and "Preview: ON" or "Preview"
+        if live_preview then
+            reaper.ImGui_PushStyleColor(ctx, reaper.ImGui_Col_Button(), 0x9966CCFF)
+        end
+        if reaper.ImGui_Button(ctx, preview_label) then
+            Config.set("live_preview", not live_preview)
+            Config.save()
+        end
+        if live_preview then
+            reaper.ImGui_PopStyleColor(ctx)
+        end
     end
 
     reaper.ImGui_SameLine(ctx)
@@ -850,33 +885,105 @@ local function render_content()
 
         -- EDIT MODE: Show raw markdown in editable text field
         if state.edit_mode and state.markdown_content ~= nil then
-            -- Use code font for raw text
-            if fonts.code then
-                reaper.ImGui_PushFont(ctx, fonts.code, fonts.sizes.code)
-            end
-
-            -- InputTextMultiline - editable (no ReadOnly flag)
-            local input_flags = reaper.ImGui_InputTextFlags_AllowTabInput()
+            local live_preview = Config.get("live_preview")
             local text_h = avail_h - CONTENT_PADDING * 2 - 10  -- Leave some margin
+            local input_flags = reaper.ImGui_InputTextFlags_AllowTabInput()
 
-            -- InputTextMultiline returns (changed, new_text)
-            local changed, new_text = reaper.ImGui_InputTextMultiline(
-                ctx,
-                "##edit_text",
-                state.markdown_content,
-                avail_w - CONTENT_PADDING * 2,
-                text_h,
-                input_flags
-            )
+            if live_preview then
+                -- ═══════════════════════════════════════════════════════════════
+                -- SPLIT VIEW: Editor (left) + Live Preview (right)
+                -- ═══════════════════════════════════════════════════════════════
+                local table_flags = reaper.ImGui_TableFlags_Resizable()
+                                  + reaper.ImGui_TableFlags_BordersInnerV()
 
-            -- Track changes
-            if changed then
-                state.markdown_content = new_text
-                state.edit_changed = true
-            end
+                if reaper.ImGui_BeginTable(ctx, "edit_split", 2, table_flags) then
+                    -- Setup columns with equal initial width
+                    local col_width = (avail_w - CONTENT_PADDING * 2) / 2
+                    reaper.ImGui_TableSetupColumn(ctx, "editor", reaper.ImGui_TableColumnFlags_WidthStretch(), col_width)
+                    reaper.ImGui_TableSetupColumn(ctx, "preview", reaper.ImGui_TableColumnFlags_WidthStretch(), col_width)
 
-            if fonts.code then
-                reaper.ImGui_PopFont(ctx)
+                    reaper.ImGui_TableNextRow(ctx)
+
+                    -- LEFT COLUMN: Editor
+                    reaper.ImGui_TableSetColumnIndex(ctx, 0)
+
+                    if fonts.code then
+                        reaper.ImGui_PushFont(ctx, fonts.code, fonts.sizes.code)
+                    end
+
+                    local editor_w = reaper.ImGui_GetContentRegionAvail(ctx)
+                    local changed, new_text = reaper.ImGui_InputTextMultiline(
+                        ctx,
+                        "##edit_text",
+                        state.markdown_content,
+                        editor_w,
+                        text_h,
+                        input_flags
+                    )
+
+                    -- Track changes and re-parse for live preview
+                    if changed then
+                        state.markdown_content = new_text
+                        state.edit_changed = true
+                        -- Re-parse for live preview
+                        state.parsed_ast = Parser.parse(new_text)
+                    end
+
+                    if fonts.code then
+                        reaper.ImGui_PopFont(ctx)
+                    end
+
+                    -- RIGHT COLUMN: Live Preview
+                    reaper.ImGui_TableSetColumnIndex(ctx, 1)
+
+                    -- Render preview in a child window for scrolling
+                    local preview_w = reaper.ImGui_GetContentRegionAvail(ctx)
+                    local child_flags = reaper.ImGui_ChildFlags_None and reaper.ImGui_ChildFlags_None() or 0
+                    local window_flags = reaper.ImGui_WindowFlags_None()
+
+                    if reaper.ImGui_BeginChild(ctx, "##live_preview", preview_w, text_h, child_flags, window_flags) then
+                        if state.parsed_ast then
+                            local render_state = {
+                                scroll_y = 0,
+                                scroll_to_line = nil,
+                                highlight_lines = nil,
+                                clicked_link = nil,
+                                scenario_enabled = false,  -- Disable scenario in preview
+                                scenario_engine = nil,
+                                scenario_changed = false,
+                            }
+                            Renderer.render(ctx, state.parsed_ast, fonts, render_state)
+                        end
+                        reaper.ImGui_EndChild(ctx)
+                    end
+
+                    reaper.ImGui_EndTable(ctx)
+                end
+            else
+                -- ═══════════════════════════════════════════════════════════════
+                -- EDITOR ONLY (no live preview)
+                -- ═══════════════════════════════════════════════════════════════
+                if fonts.code then
+                    reaper.ImGui_PushFont(ctx, fonts.code, fonts.sizes.code)
+                end
+
+                local changed, new_text = reaper.ImGui_InputTextMultiline(
+                    ctx,
+                    "##edit_text",
+                    state.markdown_content,
+                    avail_w - CONTENT_PADDING * 2,
+                    text_h,
+                    input_flags
+                )
+
+                if changed then
+                    state.markdown_content = new_text
+                    state.edit_changed = true
+                end
+
+                if fonts.code then
+                    reaper.ImGui_PopFont(ctx)
+                end
             end
 
         elseif state.parsed_ast then
