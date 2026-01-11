@@ -39,7 +39,7 @@ jobs:
             --output index.xml \
             --name "ReaMD" \
             --link "https://github.com/b451c/ReaMD" \
-            --about README.md \
+            --about ABOUT.md \
             Main/
 
       - name: Push index
