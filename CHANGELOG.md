@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - ImGui ID conflict when recent files have the same filename (from different folders)
+- Settings (theme, scroll options) not persisting after restart - `Config.load()` was missing
+
+### Changed
+- Light theme redesigned for better contrast and professional appearance
+  - Blue accent buttons instead of gray (matches dark theme style)
+  - Alternating table row backgrounds for better readability
+  - Cleaner off-white background with proper borders
+  - Improved visual hierarchy
 
 ## [1.0.2] - 2026-01-11
 

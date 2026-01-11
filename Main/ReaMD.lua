@@ -4,6 +4,8 @@
 -- @changelog
 --   v1.0.3 (2026-01-11)
 --   * Fix ImGui ID conflict when recent files have same filename
+--   * Fix settings (theme, etc.) not persisting after restart
+--   * Redesign Light theme: better contrast, blue buttons, alternating table rows
 --   v1.0.2 (2026-01-11)
 --   * Update welcome message to reflect current features
 --   v1.0.1 (2026-01-10)
@@ -99,6 +101,7 @@ end
 
 local Utils = require('utils')
 local Config = require('config')
+Config.load()  -- Load saved settings from ExtState
 local Parser = require('md_parser')
 local Renderer = require('md_renderer')
 local ScenarioEngine = require('scenario_engine')
@@ -239,35 +242,45 @@ local function apply_theme(imgui_ctx)
         reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ScrollbarBg(), 0x1E1E1EFF)
         reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ScrollbarGrab(), 0x4C4C4CFF)
         reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_PopupBg(), 0x2D2D2DFF)        -- Dark popup bg
+        -- Table row backgrounds (alternating)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TableRowBg(), 0x00000000)      -- Transparent
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TableRowBgAlt(), 0x2A2A2AFF)  -- Subtle alternating
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TableBorderStrong(), 0x4A4A4AFF)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TableBorderLight(), 0x3A3A3AFF)
     else
-        -- Light theme (Pro Tools style - medium grays, not bright white)
-        -- Same bg for window and child to avoid visible border
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_WindowBg(), 0xB8B8B8FF)
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ChildBg(), 0xB8B8B8FF)
-        -- Text: dark for readability on medium gray
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_Text(), 0x1A1A1AFF)           -- Near-black text
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TextDisabled(), 0x5A5A5AFF)   -- Darker disabled
-        -- Borders: subtle darker line
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_Border(), 0x808080FF)         -- Gray border
-        -- Frames (inputs, sliders)
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_FrameBg(), 0xC8C8C8FF)        -- Light gray input
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_FrameBgHovered(), 0xD8D8D8FF) -- Lighter on hover
-        -- Buttons: slightly raised look
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_Button(), 0xC0C0C0FF)         -- Light gray button
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ButtonHovered(), 0xD0D0D0FF)  -- Lighter hover
-        -- Headers (used in combo/menu selections)
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_Header(), 0xB0B0B0FF)         -- Selected item bg
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_HeaderHovered(), 0xC0C0C0FF)  -- Hover item bg
+        -- Light theme - professional with clear contrast
+        -- Window background: clean off-white
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_WindowBg(), 0xE8E8E8FF)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ChildBg(), 0xE8E8E8FF)
+        -- Text: dark for readability
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_Text(), 0x1A1A1AFF)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TextDisabled(), 0x6A6A6AFF)
+        -- Borders: visible but subtle
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_Border(), 0x9A9A9AFF)
+        -- Frames (inputs): white with clear border
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_FrameBg(), 0xFFFFFFFF)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_FrameBgHovered(), 0xF5F5F5FF)
+        -- Buttons: blue accent (matches dark theme)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_Button(), 0x4A90D9FF)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ButtonHovered(), 0x5BA0E9FF)
+        -- Headers (selections)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_Header(), 0xD0E0F0FF)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_HeaderHovered(), 0xE0F0FFFF)
         -- Scrollbar
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ScrollbarBg(), 0x989898FF)    -- Match window
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ScrollbarGrab(), 0x707070FF)  -- Darker grab
-        -- Popup (dropdowns, menus)
-        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_PopupBg(), 0xC8C8C8FF)        -- Light popup bg
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ScrollbarBg(), 0xD8D8D8FF)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_ScrollbarGrab(), 0xA0A0A0FF)
+        -- Popup
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_PopupBg(), 0xF5F5F5FF)
+        -- Table row backgrounds (alternating)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TableRowBg(), 0xFFFFFF00)     -- Transparent (use default)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TableRowBgAlt(), 0xF0F0F0FF) -- Subtle alternating
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TableBorderStrong(), 0xB0B0B0FF)
+        reaper.ImGui_PushStyleColor(imgui_ctx, reaper.ImGui_Col_TableBorderLight(), 0xD0D0D0FF)
     end
 end
 
 -- Track number of pushed style colors for cleanup
-local THEME_COLOR_COUNT = 14
+local THEME_COLOR_COUNT = 18
 
 --- Remove theme colors (call at end of frame)
 local function pop_theme()
