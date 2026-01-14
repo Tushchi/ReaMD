@@ -51,6 +51,10 @@ Perfect for:
 - **Dark & Light themes** - Seamlessly match your REAPER theme
 - Dockable window - Integrate into your workflow
 
+<p align="center">
+  <img src="docs/images/editor.gif" alt="Edit Mode Demo" width="600">
+</p>
+
 ### Scenario Linking
 - **Link text fragments to timeline items** - Click a paragraph, jump to the item
 - **Multi-item support** - One fragment can reference multiple items
@@ -196,6 +200,13 @@ Click **Edit Prompt** in settings to modify `prompts/ai_format_prompt.txt`. Tail
 <summary><strong>Settings Panel</strong></summary>
 <p align="center">
   <img src="docs/images/settings.png" alt="Settings" width="400">
+</p>
+</details>
+
+<details>
+<summary><strong>Edit Mode</strong></summary>
+<p align="center">
+  <img src="docs/images/editor.png" alt="Edit Mode" width="600">
 </p>
 </details>
 
