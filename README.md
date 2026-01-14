@@ -275,6 +275,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
   Made with ❤️ for the REAPER community
 
 <p align="center">
+  <a href="https://ko-fi.com/quickmd"><img src="https://img.shields.io/badge/Ko--fi-support-ff5e5b?style=flat-square&logo=ko-fi" alt="Ko-fi"></a>
   <a href="https://buymeacoffee.com/bsroczynskh"><img src="https://img.shields.io/badge/Buy%20Me%20a%20Coffee-support-yellow?style=flat-square&logo=buy-me-a-coffee" alt="Buy Me a Coffee"></a>
 </p>
 </p>
